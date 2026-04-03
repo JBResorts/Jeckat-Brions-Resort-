@@ -2232,3 +2232,23 @@ body {
 .hero-stack {
   grid-template-rows: auto auto;
 }
+@media (max-width: 900px) {
+  .showcase-large,
+  .showcase-small {
+    gap: 14px !important;
+    padding-bottom: 14px !important;
+  }
+
+  .showcase-body,
+  .showcase-body.compact {
+    padding-top: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .showcase-large,
+  .showcase-small {
+    gap: 12px !important;
+    padding-bottom: 12px !important;
+  }
+}
