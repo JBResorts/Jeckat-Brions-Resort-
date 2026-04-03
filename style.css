@@ -1322,3 +1322,6 @@ body {
     padding: 16px 16px 22px;
   }
 }
+.hero-stack {
+  grid-template-rows: auto auto;
+}
