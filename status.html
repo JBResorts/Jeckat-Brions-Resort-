@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JeckatBrionsResort | Booking Status</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #0b0b0b;
+      --panel: #141414;
+      --paper: #f4f1ea;
+      --ink: #111111;
+      --muted: #bcb5ab;
+      --line-dark: rgba(255, 255, 255, 0.12);
+      --line-light: rgba(0, 0, 0, 0.12);
+      --success: #d7ffe2;
+      --success-ink: #0b5d2b;
+      --warning: #fff0c9;
+      --warning-ink: #7a5b00;
+      --danger: #ffd8de;
+      --danger-ink: #87253a;
+      --radius-xl: 32px;
+      --radius-lg: 22px;
+      --shadow-dark: 0 26px 70px rgba(0, 0, 0, 0.35);
+      --shadow-light: 0 24px 60px rgba(0, 0, 0, 0.08);
+      --max-width: 960px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: #f6f2ea;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 28px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(10, 10, 10, 0.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-copy small {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .nav-link {
+      min-height: 44px;
+      padding: 0 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-weight: 700;
+    }
+
+    .page {
+      padding: 36px 0 56px;
+    }
+
+    .capsule {
+      min-height: 44px;
+      padding: 0 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+
+    .panel-dark,
+    .panel-light {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+
+    .panel-dark {
+      background: linear-gradient(180deg, #151515 0%, #101010 100%);
+      border: 1px solid var(--line-dark);
+      box-shadow: var(--shadow-dark);
+      padding: 28px;
+    }
+
+    .panel-light {
+      background: linear-gradient(180deg, #fbf8f2 0%, #ece7df 100%);
+      color: var(--ink);
+      border: 1px solid var(--line-light);
+      box-shadow: var(--shadow-light);
+      padding: 28px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 0.98;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 5.4rem);
+      max-width: 9ch;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.6rem);
+    }
+
+    .lead,
+    .helper,
+    .status-meta p,
+    .lookup-copy {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .lookup-copy.dark {
+      color: #605d57;
+    }
+
+    .lookup-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .field-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    input {
+      width: 100%;
+      min-height: 54px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--ink);
+      outline: none;
+    }
+
+    input:focus {
+      border-color: rgba(0, 0, 0, 0.28);
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+    }
+
+    .btn {
+      min-height: 54px;
+      padding: 0 24px;
+      border: none;
+      border-radius: 999px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-dark {
+      background: #111111;
+      color: #f5f2eb;
+    }
+
+    .btn-light {
+      background: #f5f2eb;
+      color: #111111;
+    }
+
+    .status-card {
+      display: none;
+      gap: 18px;
+    }
+
+    .status-card.show {
+      display: grid;
+    }
+
+    .status-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .status-badge {
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      font-size: 0.8rem;
+    }
+
+    .status-pending {
+      background: var(--warning);
+      color: var(--warning-ink);
+    }
+
+    .status-confirmed {
+      background: var(--success);
+      color: var(--success-ink);
+    }
+
+    .status-cancelled {
+      background: var(--danger);
+      color: var(--danger-ink);
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .status-box {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .status-box span {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #65615a;
+      margin-bottom: 8px;
+      letter-spacing: 0.06em;
+    }
+
+    .status-box strong {
+      font-size: 1.05rem;
+    }
+
+    .live-note {
+      padding: 16px 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .message {
+      min-height: 24px;
+      margin-top: 14px;
+      font-weight: 700;
+    }
+
+    .message.error {
+      color: #ffb7c0;
+    }
+
+    .message.success {
+      color: #9ce7b2;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.58);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 50;
+    }
+
+    .overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      width: min(520px, 100%);
+      background: linear-gradient(180deg, #fbf8f2 0%, #ece7df 100%);
+      color: #111111;
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: var(--shadow-light);
+      text-align: center;
+    }
+
+    .modal h3 {
+      margin: 0 0 12px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .modal p {
+      color: #4f4b45;
+      line-height: 1.75;
+      margin: 0 0 18px;
+    }
+
+    .footer {
+      padding: 18px 0 34px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    @media (max-width: 760px) {
+      .lookup-grid,
+      .status-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        max-width: 100%;
+        font-size: 3.4rem;
+      }
+    }
+    @media (max-width: 720px) {
+  .container {
+    width: calc(100% - 18px);
+  }
+
+  .nav {
+    min-height: 68px;
+  }
+
+  .brand-copy strong {
+    font-size: 0.95rem;
+  }
+
+  .brand-copy small {
+    font-size: 0.72rem;
+  }
+
+  h1 {
+    max-width: 100%;
+    font-size: clamp(2.2rem, 10vw, 3.4rem);
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+  }
+
+  .panel-dark,
+  .panel-light {
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .lookup-grid,
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  input {
+    min-height: 50px;
+    font-size: 0.95rem;
+  }
+
+  .btn {
+    width: 100%;
+    min-height: 50px;
+  }
+
+  .status-top {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: calc(100% - 14px);
+  }
+
+  .panel-dark,
+  .panel-light {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 10vw, 2.8rem);
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 8vw, 2.1rem);
+  }
+
+  .modal {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .modal h3 {
+    font-size: 1.8rem;
+  }
+}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="./index.html" class="brand">
+        <span class="brand-mark">J</span>
+        <span class="brand-copy">
+          <strong>JeckatBrionsResort</strong>
+          <small>Live booking status</small>
+        </span>
+      </a>
+
+      <a href="./index.html" class="nav-link">Back to booking</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="container">
+      <span class="capsule">LIVE APPROVAL STATUS</span>
+
+      <div class="layout">
+        <section class="panel-dark">
+          <p class="eyebrow">KEEP THIS PAGE OPEN</p>
+          <h1>Wait here for your booking update.</h1>
+          <p class="lead">
+            This page checks your booking status every few seconds. When the resort approves your request,
+            a confirmation popup appears automatically.
+          </p>
+        </section>
+
+        <section class="panel-light">
+          <div class="lookup-grid">
+            <div>
+              <p class="eyebrow" style="color:#68645e;">LOOK UP BOOKING</p>
+              <h2>Track your request</h2>
+              <p class="lookup-copy dark">
+                Enter the same contact number you used during booking. Your reference is shown right after you submit.
+              </p>
+            </div>
+
+            <div>
+              <form id="lookupForm" class="field-list">
+                <div class="field">
+                  <label for="bookingReference">Booking Reference</label>
+                  <input id="bookingReference" type="text" placeholder="JBR-AB12CD34" />
+                </div>
+
+                <div class="field">
+                  <label for="contactNumber">Contact Number</label>
+                  <input id="contactNumber" type="text" placeholder="+63 9xx xxx xxxx" />
+                </div>
+
+                <button type="submit" class="btn btn-dark">Check status</button>
+              </form>
+
+              <div id="statusMessage" class="message"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="statusCard" class="panel-light status-card">
+          <div class="status-top">
+            <div>
+              <p class="eyebrow" style="color:#68645e;">CURRENT BOOKING STATUS</p>
+              <h2 id="statusHeadline">Waiting for lookup</h2>
+            </div>
+
+            <div id="statusBadge" class="status-badge status-pending">PENDING</div>
+          </div>
+
+          <div class="status-grid">
+            <div class="status-box">
+              <span>REFERENCE</span>
+              <strong id="refValue">—</strong>
+            </div>
+
+            <div class="status-box">
+              <span>BOOKING DATE</span>
+              <strong id="dateValue">—</strong>
+            </div>
+
+            <div class="status-box">
+              <span>TIME SLOT</span>
+              <strong id="slotValue">—</strong>
+            </div>
+
+            <div class="status-box">
+              <span>PAYMENT</span>
+              <strong id="paymentValue">—</strong>
+            </div>
+          </div>
+
+          <div class="status-meta">
+            <p id="statusDescription">No booking loaded yet.</p>
+            <p id="approvedAtText"></p>
+          </div>
+
+          <div class="live-note">
+            This page auto-checks every 5 seconds. You can leave it open while waiting for approval.
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div id="approvalOverlay" class="overlay" aria-hidden="true">
+    <div class="modal">
+      <h3>Your booking is confirmed</h3>
+      <p>
+        JeckatBrionsResort has approved your booking. Please keep your booking reference and wait for any further payment or arrival instructions from the resort.
+      </p>
+      <button id="closeModalBtn" class="btn btn-dark" type="button">Got it</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">JeckatBrionsResort • Live approval tracker</div>
+  </footer>
+
+  <script>
+    const SUPABASE_URL = "https://ynebefrxndpmegdlgnvc.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_HrQJWZ27IlogHw7XMgOr6Q_oXKmb5vF";
+    const POLL_INTERVAL_MS = 5000;
+
+    const lookupForm = document.getElementById("lookupForm");
+    const bookingReferenceInput = document.getElementById("bookingReference");
+    const contactNumberInput = document.getElementById("contactNumber");
+    const statusMessage = document.getElementById("statusMessage");
+    const statusCard = document.getElementById("statusCard");
+    const statusHeadline = document.getElementById("statusHeadline");
+    const statusBadge = document.getElementById("statusBadge");
+    const refValue = document.getElementById("refValue");
+    const dateValue = document.getElementById("dateValue");
+    const slotValue = document.getElementById("slotValue");
+    const paymentValue = document.getElementById("paymentValue");
+    const statusDescription = document.getElementById("statusDescription");
+    const approvedAtText = document.getElementById("approvedAtText");
+    const approvalOverlay = document.getElementById("approvalOverlay");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+
+    let pollTimer = null;
+    let lastKnownStatus = "";
+
+    document.addEventListener("DOMContentLoaded", init);
+
+    function init() {
+      const params = new URLSearchParams(window.location.search);
+      bookingReferenceInput.value = params.get("ref") || "";
+      contactNumberInput.value = params.get("phone") || "";
+
+      closeModalBtn.addEventListener("click", () => {
+        approvalOverlay.classList.remove("show");
+      });
+
+      lookupForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await lookupAndStart();
+      });
+
+      if (bookingReferenceInput.value && contactNumberInput.value) {
+        lookupAndStart();
+      }
+    }
+
+    async function lookupAndStart() {
+      clearMessage();
+
+      const reference = bookingReferenceInput.value.trim();
+      const contactNumber = contactNumberInput.value.trim();
+
+      if (!reference) {
+        showMessage("Enter your booking reference.", "error");
+        return;
+      }
+
+      if (!contactNumber) {
+        showMessage("Enter the same contact number you used when booking.", "error");
+        return;
+      }
+
+      const row = await loadStatus(reference, contactNumber, true);
+
+      if (!row) {
+        stopPolling();
+        return;
+      }
+
+      startPolling();
+    }
+
+    async function loadStatus(reference, contactNumber, resetStatusMemory = false) {
+      try {
+        const rows = await fetchSupabaseJson("/rest/v1/rpc/get_public_booking_status", {
+          method: "POST",
+          body: JSON.stringify({
+            p_reference: reference,
+            p_contact_number: contactNumber
+          })
+        });
+
+        const row = Array.isArray(rows) ? rows[0] : null;
+
+        if (!row) {
+          statusCard.classList.remove("show");
+          showMessage("No booking matched that reference and contact number.", "error");
+          return null;
+        }
+
+        if (resetStatusMemory) {
+          lastKnownStatus = row.status;
+        } else if (lastKnownStatus && lastKnownStatus !== row.status) {
+          if (row.status === "confirmed") {
+            approvalOverlay.classList.add("show");
+          }
+        }
+
+        lastKnownStatus = row.status;
+        renderStatus(row);
+        showMessage("Status is live. Keep this page open while waiting for approval.", "success");
+        return row;
+      } catch (error) {
+        showMessage(error.message || "Could not load booking status.", "error");
+        return null;
+      }
+    }
+
+    function startPolling() {
+      stopPolling();
+
+      pollTimer = setInterval(async () => {
+        const reference = bookingReferenceInput.value.trim();
+        const contactNumber = contactNumberInput.value.trim();
+
+        if (!reference || !contactNumber) {
+          stopPolling();
+          return;
+        }
+
+        await loadStatus(reference, contactNumber, false);
+      }, POLL_INTERVAL_MS);
+    }
+
+    function stopPolling() {
+      if (pollTimer) {
+        clearInterval(pollTimer);
+        pollTimer = null;
+      }
+    }
+
+    function renderStatus(row) {
+      statusCard.classList.add("show");
+
+      refValue.textContent = row.booking_reference || "—";
+      dateValue.textContent = row.booking_date ? formatLongDate(row.booking_date) : "—";
+      slotValue.textContent = formatSlot(row.slot_type);
+      paymentValue.textContent = formatPayment(row.payment_status);
+
+      statusBadge.className = `status-badge ${statusClass(row.status)}`;
+      statusBadge.textContent = String(row.status || "pending").toUpperCase();
+      statusHeadline.textContent = statusTitle(row.status);
+      statusDescription.textContent = statusText(row.status, row.payment_status);
+
+      approvedAtText.textContent = row.approved_at
+        ? `Approved at: ${formatDateTime(row.approved_at)}`
+        : "";
+    }
+
+    function statusClass(status) {
+      if (status === "confirmed") return "status-confirmed";
+      if (status === "cancelled") return "status-cancelled";
+      return "status-pending";
+    }
+
+    function statusTitle(status) {
+      if (status === "confirmed") return "Confirmed";
+      if (status === "cancelled") return "Not approved";
+      return "Pending review";
+    }
+
+    function statusText(status, paymentStatus) {
+      if (status === "confirmed") {
+        return `Your booking is confirmed. Payment status: ${formatPayment(paymentStatus)}.`;
+      }
+
+      if (status === "cancelled") {
+        return "This booking was not approved or was cancelled. Please contact the resort for details.";
+      }
+
+      return "Your booking has been received and is waiting for review by the resort.";
+    }
+
+    async function fetchSupabaseJson(path, options = {}) {
+      const response = await fetch(`${SUPABASE_URL}${path}`, {
+        ...options,
+        headers: {
+          "Content-Type": "application/json",
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          ...(options.headers || {})
+        }
+      });
+
+      const text = await response.text();
+      let data = [];
+
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch {
+          data = text;
+        }
+      }
+
+      if (!response.ok) {
+        throw new Error(extractErrorMessage(data) || "Request failed.");
+      }
+
+      return data;
+    }
+
+    function extractErrorMessage(data) {
+      if (!data) return "";
+      if (typeof data === "string") return data;
+      if (typeof data.message === "string" && data.message.trim()) return data.message.trim();
+      if (typeof data.error_description === "string" && data.error_description.trim()) return data.error_description.trim();
+      if (typeof data.details === "string" && data.details.trim()) return data.details.trim();
+      return "";
+    }
+
+    function formatSlot(slot) {
+      if (slot === "am") return "Morning (8:00 AM – 5:00 PM)";
+      if (slot === "pm") return "Evening (8:00 PM – 5:00 AM)";
+      if (slot === "whole_day") return "Whole Day";
+      return "—";
+    }
+
+    function formatPayment(payment) {
+      if (payment === "fully_paid") return "Fully Paid";
+      if (payment === "partial") return "Partial";
+      if (payment === "refunded") return "Refunded";
+      return "Unpaid";
+    }
+
+    function formatLongDate(iso) {
+      const [year, month, day] = iso.split("-").map(Number);
+      const date = new Date(year, month - 1, day);
+
+      return new Intl.DateTimeFormat("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+      }).format(date);
+    }
+
+    function formatDateTime(value) {
+      const date = new Date(value);
+
+      return new Intl.DateTimeFormat("en-US", {
+        dateStyle: "medium",
+        timeStyle: "short"
+      }).format(date);
+    }
+
+    function showMessage(message, type) {
+      statusMessage.textContent = message;
+      statusMessage.className = `message ${type || ""}`;
+    }
+
+    function clearMessage() {
+      statusMessage.textContent = "";
+      statusMessage.className = "message";
+    }
+  </script>
+</body>
+</html>

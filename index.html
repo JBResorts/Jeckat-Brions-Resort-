@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jeckat Brions Resort</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#top" class="brand">
+        <span class="brand-mark">N</span>
+        <span class="brand-copy">
+          <strong>Jeckat Brions Resort</strong>
+          <small>Booking System</small>
+        </span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#booking">Booking</a>
+        <a href="#guide">Guide</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a href="#booking" class="nav-cta">Reserve</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero section-dark">
+      <div class="container">
+        <div class="hero-topline">
+          <span class="capsule">RESORT BOOKING WEBSITE</span>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-copy panel-dark">
+            <p class="eyebrow">Public site for all guests</p>
+            <h1>Simply reserved. Beautifully arranged. Distinctly yours.</h1>
+            <p class="hero-lead">
+            Choose a date, see live availability on the calendar, then select
+              Morning, Evening, or Whole Day depending on what is still available.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#booking" class="btn btn-light">Book Now</a>
+              <a href="#guide" class="btn btn-ghost">How It Works</a>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat-card">
+                <strong>Dark</strong>
+                <span>Fully booked day</span>
+              </div>
+              <div class="stat-card">
+                <strong>Light</strong>
+                <span>Partially available day</span>
+              </div>
+              <div class="stat-card">
+                <strong>White</strong>
+                <span>Fully available day</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-stack">
+            <article class="showcase showcase-large">
+              <div class="showcase-media showcase-main-photo"></div>
+              <div class="showcase-body">
+                <span class="mini-label">LIVE CALENDAR</span>
+                <h2>Designed for guests to book fast</h2>
+                <p>
+                  A custom calendar shows real availability and prevents invalid whole-day selections.
+                </p>
+              </div>
+            </article>
+
+            <article class="showcase showcase-small">
+              <div class="showcase-media showcase-side-photo"></div>
+              <div class="showcase-body compact">
+                <span class="mini-label dark">Enjoy the convenience</span>
+                <p>Experience the art of leisure. From our polished lounges to your private suite, Jeckat Brions Resort is a sanctuary of refined comfort and effortless style, perfectly curated for your arrival.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="booking" class="section-light booking-section">
+      <div class="container booking-layout">
+        <div class="calendar-panel panel-light">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow dark">CHOOSE A DATE</p>
+              <h2 class="section-title dark-title">Availability Calendar</h2>
+            </div>
+
+            <div class="calendar-legend">
+              <span><i class="legend-box legend-available"></i> Available</span>
+              <span><i class="legend-box legend-partial"></i> Partial</span>
+              <span><i class="legend-box legend-full"></i> Full</span>
+            </div>
+          </div>
+
+          <div class="calendar-toolbar">
+            <button id="prevMonthBtn" type="button" class="month-btn" aria-label="Previous month">‹</button>
+            <div id="monthLabel" class="month-label">Month Year</div>
+            <button id="nextMonthBtn" type="button" class="month-btn" aria-label="Next month">›</button>
+          </div>
+
+          <div class="calendar-weekdays">
+            <span>Sun</span>
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+          </div>
+
+          <div id="calendarGrid" class="calendar-grid"></div>
+
+          <div class="selected-date-box">
+            <p class="selected-label">Selected Date</p>
+            <strong id="selectedDateText">No date selected</strong>
+            <p id="selectedDateHelper" class="selected-helper">
+              Click an available date to continue.
+            </p>
+          </div>
+        </div>
+
+        <form id="bookingForm" class="booking-form panel-dark" novalidate>
+          <div class="form-head">
+            <p class="eyebrow">BOOKING FORM</p>
+            <h2 class="section-title">Reserve your slot</h2>
+            <p class="form-copy">
+              Whole Day is only available when both Morning and Evening are still free.
+            </p>
+          </div>
+
+          <div class="form-grid">
+            <div class="field field-full">
+              <label for="customerName">Name</label>
+              <input id="customerName" name="customerName" type="text" placeholder="Juan Dela Cruz" required />
+            </div>
+
+            <div class="field field-full">
+              <label for="contactNumber">Contact Number</label>
+              <input id="contactNumber" name="contactNumber" type="tel" placeholder="+63 9xx xxx xxxx" required />
+            </div>
+
+            <div class="field field-full">
+              <label for="selectedDateDisplay">Date</label>
+              <input id="selectedDateDisplay" name="selectedDateDisplay" type="text" readonly placeholder="Pick a date from the calendar" />
+            </div>
+
+            <div class="field field-full">
+              <label>Day of Booking</label>
+              <div id="slotOptions" class="slot-options"></div>
+              <p id="slotHelper" class="slot-helper">
+                Select a date first to see available time options.
+              </p>
+            </div>
+
+            <div class="field field-full">
+              <label for="notes">Notes <span class="optional">(optional)</span></label>
+              <textarea id="notes" name="notes" placeholder="Extra details, requests, event notes, etc."></textarea>
+            </div>
+
+            <input id="website" name="website" type="text" class="honeypot" autocomplete="off" tabindex="-1" />
+
+            <div class="field field-full">
+             <button id="submitBtn" type="submit" class="btn btn-light submit-capsule">
+             Submit Booking
+            </button>
+            </div>
+          </div>
+
+          <div id="formMessage" class="form-message" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="guide" class="section-dark guide-section">
+      <div class="container">
+        <div class="guide-grid">
+          <article class="guide-card panel-dark">
+            <span class="step-no">01</span>
+            <h3>Pick a date</h3>
+            <p>Dark dates are full. Light dates still have either Morning or Evening available.</p>
+          </article>
+
+          <article class="guide-card panel-dark">
+            <span class="step-no">02</span>
+            <h3>Choose the time slot</h3>
+            <p>
+              If one half-day is already booked, the website automatically removes the Whole Day option.
+            </p>
+          </article>
+
+          <article class="guide-card panel-dark">
+            <span class="step-no">03</span>
+            <h3>Submit your details</h3>
+            <p>Your booking request is saved instantly, and the calendar updates after submission.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" class="site-footer">
+   <div>
+  <p class="eyebrow">JECKAT BRIONS RESORT</p>
+  <h2>81 Arasity, Tinajeros Malabon City</h2>
+
+  <a
+    href="https://maps.app.goo.gl/bycmMKBrjcWVcSgV9"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="map-btn"
+  >
+    View on Google Maps
+  </a>
+</div>
+
+      <div class="footer-copy">
+        <p>+63 915 840 1399</p>
+        <p>reservations@jeckatbrions.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
