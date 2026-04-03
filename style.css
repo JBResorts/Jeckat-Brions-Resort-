@@ -1270,3 +1270,58 @@ body {
     width: 100%;
   }
 }
+@media (max-width: 720px) {
+  .hero-stack {
+    grid-template-rows: auto auto;
+  }
+
+  .showcase {
+    overflow: visible;
+  }
+
+  .showcase-large,
+  .showcase-small {
+    min-height: auto;
+  }
+
+  .showcase-large {
+    grid-template-rows: 220px auto;
+  }
+
+  .showcase-small {
+    grid-template-columns: 1fr;
+    grid-template-rows: 180px auto;
+  }
+
+  .showcase-body,
+  .showcase-body.compact {
+    padding: 18px 18px 24px;
+  }
+
+  .showcase h2,
+  .showcase h3 {
+    line-height: 1.08;
+    font-size: 1.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .showcase-large {
+    grid-template-rows: 180px auto;
+  }
+
+  .showcase-small {
+    grid-template-rows: 150px auto;
+  }
+
+  .showcase h2,
+  .showcase h3 {
+    font-size: 1.6rem;
+    line-height: 1.1;
+  }
+
+  .showcase-body,
+  .showcase-body.compact {
+    padding: 16px 16px 22px;
+  }
+}
