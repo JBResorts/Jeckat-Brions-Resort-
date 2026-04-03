@@ -317,11 +317,8 @@ textarea {
 }
 
 .hero-stack {
-  display: grid;
-  grid-template-rows: 1fr 0.85fr;
-  gap: 18px;
+  grid-template-rows: auto auto;
 }
-
 .showcase {
   overflow: hidden;
   border-radius: var(--radius-xl);
